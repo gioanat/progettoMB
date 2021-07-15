@@ -1,0 +1,215 @@
+---
+title: "regioniutili"
+author: "Gioana Teora"
+date: "14/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list=ls())
+
+#install.packages("xlsx")
+library("xlsx")
+```
+
+```{r}
+
+index=0
+piemonte=data.frame()
+emilia=data.frame()
+lombardia=data.frame()
+marche=data.frame()
+toscana=data.frame()
+veneto=data.frame()
+
+
+for(j in 2:12){
+  startday=1
+  if(j==2){
+    countday=29
+    startday=24
+  }
+  if(j==3 | j==5 | j==7 | j==8){
+    countday=31
+  }
+  if(j==10){
+    countday=31
+  }
+  if(j==12){
+    countday=23
+  }
+  if(j==4 | j==6 | j==9){
+    countday=30
+  }
+  if(j==11){
+    countday=30
+  }
+  for(i in startday:countday){
+    stringaread="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni/dpc-covid19-ita-regioni-2020"
+    index=index+1
+      if(j==2){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==3 | j==5 | j==7 | j==8){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==10){
+        stringaread=paste(stringaread,j,sep="")
+      }
+      if(j==12){
+        stringaread=paste(stringaread,j,sep="")
+      }
+      if(j==4 | j==6 | j==9){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==11){
+        stringaread=paste(stringaread,j,sep="")
+      }
+    if(i<=9){
+      stringaread=paste(stringaread,"0",i,".csv",sep="")
+    }else{
+      stringaread=paste(stringaread,i,".csv",sep="")
+    }
+    data=read.csv(stringaread)
+    newdata=data.frame(data=data$data)
+    newdata$stato=data$stato
+    newdata$codice_regione=data$codice_regione
+    newdata$denominazione_regione=data$denominazione_regione
+    newdata$lat=data$lat
+    newdata$long=data$long
+    newdata$ricoverati_con_sintomi=data$ricoverati_con_sintomi
+    newdata$terapia_intensiva=data$terapia_intensiva
+    newdata$totale_ospedalizzati=data$totale_ospedalizzati
+    newdata$isolamento_domiciliare=data$isolamento_domiciliare
+    newdata$totale_positivi=data$totale_positivi
+    newdata$variazione_totale_positivi=data$variazione_totale_positivi
+    newdata$nuovi_positivi=data$nuovi_positivi
+    newdata$dimessi_guariti=data$dimessi_guariti
+    newdata$deceduti=data$deceduti
+    newdata$casi_da_sospetto_diagnostico=data$casi_da_sospetto_diagnostico
+    newdata$casi_da_screening=data$casi_da_screening
+    newdata$totale_casi=data$totale_casi
+    newdata$tamponi=data$tamponi
+    newdata$casi_testati=data$casi_testati
+    newdata$note=data$note
+    newdata$ingressi_terapia_intensiva=data$ingressi_terapia_intensiva
+    newdata$note_test=data$note_test
+    newdata$note_casi=data$note_casi
+    piemonte=rbind(piemonte,newdata[newdata$denominazione_regione=="Piemonte",])
+    veneto=rbind(veneto,newdata[newdata$denominazione_regione=="Veneto",])
+    emilia=rbind(emilia,newdata[newdata$denominazione_regione=="Emilia-Romagna",])
+    lombardia=rbind(lombardia,newdata[newdata$denominazione_regione=="Lombardia",])
+    marche=rbind(marche,newdata[newdata$denominazione_regione=="Marche",])
+    toscana=rbind(toscana,newdata[newdata$denominazione_regione=="Toscana",])
+  }
+  
+}
+```
+
+
+
+
+```{r}
+summary(piemonte)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/piemonte.xlsx"
+write.xlsx(piemonte, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+summary(marche)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/marche.xlsx"
+write.xlsx(marche, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+summary(toscana)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/toscana.xlsx"
+write.xlsx(toscana, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+summary(veneto)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/veneto.xlsx"
+write.xlsx(veneto, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+summary(emilia)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/emilia.xlsx"
+write.xlsx(emilia, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+summary(lombardia)
+stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/lombardia.xlsx"
+write.xlsx(lombardia, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+```
+
+```{r}
+italia=data.frame()
+for(j in 2:12){
+  startday=1
+  if(j==2){
+    countday=29
+    startday=24
+  }
+  if(j==3 | j==5 | j==7 | j==8){
+    countday=31
+  }
+  if(j==10){
+    countday=31
+  }
+  if(j==12){
+    countday=23
+  }
+  if(j==4 | j==6 | j==9){
+    countday=30
+  }
+  if(j==11){
+    countday=30
+  }
+  for(i in startday:countday){
+    stringaread="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale-2020"
+    index=index+1
+      if(j==2){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==3 | j==5 | j==7 | j==8){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==10){
+        stringaread=paste(stringaread,j,sep="")
+      }
+      if(j==12){
+        stringaread=paste(stringaread,j,sep="")
+      }
+      if(j==4 | j==6 | j==9){
+        stringaread=paste(stringaread,"0",j,sep="")
+      }
+      if(j==11){
+        stringaread=paste(stringaread,j,sep="")
+      }
+    if(i<=9){
+      stringaread=paste(stringaread,"0",i,".csv",sep="")
+    }else{
+      stringaread=paste(stringaread,i,".csv",sep="")
+    }
+    data=read.csv(stringaread)
+    newdata=data.frame(data=data$data)
+    newdata$stato=data$stato
+    newdata$ricoverati_con_sintomi=data$ricoverati_con_sintomi
+    newdata$terapia_intensiva=data$terapia_intensiva
+    newdata$totale_ospedalizzati=data$totale_ospedalizzati
+    newdata$isolamento_domiciliare=data$isolamento_domiciliare
+    newdata$totale_positivi=data$totale_positivi
+    newdata$variazione_totale_positivi=data$variazione_totale_positivi
+    newdata$nuovi_positivi=data$nuovi_positivi
+    newdata$dimessi_guariti=data$dimessi_guariti
+    newdata$deceduti=data$deceduti
+    newdata$casi_da_sospetto_diagnostico=data$casi_da_sospetto_diagnostico
+    newdata$casi_da_screening=data$casi_da_screening
+    newdata$totale_casi=data$totale_casi
+    newdata$tamponi=data$tamponi
+    newdata$casi_testati=data$casi_testati
+    newdata$note=data$note
+    newdata$ingressi_terapia_intensiva=data$ingressi_terapia_intensiva
+    newdata$note_test=data$note_test
+    newdata$note_casi=data$note_casi
+    italia=rbind(italia,newdata)
+  }
+}
+  summary(italia)
+  stringawrite="C:/Users/jo961/Desktop/tesina biomedicina covid/dati-regioni-xlsx/italia.xlsx"
+  write.xlsx(italia, file=stringawrite,col.names=TRUE, row.names=FALSE, append=FALSE,showNA = FALSE)
+```
+
+
