@@ -2,4 +2,4 @@
 Progetto sviluppato per l'esame di Modelli matematici per la Biomedicina.
 
 
-Nota: i file presenti nella cartella datiTraffico sono stati presi dal sito dell'AISCAT.
+Nota: i file presenti nella cartella "dati traffico" sono stati presi dal sito dell'AISCAT.
